@@ -8,7 +8,7 @@ public class SetupCombatState : CombatState
 
     public override void Enter()
     {
-        Debug.Log("Setup: ...Entering");
+        Debug.Log("CombatSetup: ...Entering");
         Debug.Log("Creating " + _numberOfEnemies + " enemies.");
         // CANT change state while still in Enter()/Exit() transition!
         // DONT put ChangeState<> here.
@@ -18,7 +18,18 @@ public class SetupCombatState : CombatState
     public override void Tick()
     {
         // admittedly hacky for demo. You would usually have delays or Input.
+        
         if(_activated == false)
+        {
+            _activated = true;
+            StateMachine.ChangeState<PlayerTurnCombatState>();
+        }
+        
+    }
+
+    public void EnterPlayerTurnCombatState()
+    {
+        if (_activated == false)
         {
             _activated = true;
             StateMachine.ChangeState<PlayerTurnCombatState>();
@@ -28,6 +39,6 @@ public class SetupCombatState : CombatState
     public override void Exit()
     {
         _activated = false;
-        Debug.Log("Setup: Exiting...");
+        Debug.Log("CombatSetup: Exiting...");
     }
 }

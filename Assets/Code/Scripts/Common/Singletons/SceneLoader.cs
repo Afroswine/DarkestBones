@@ -21,7 +21,7 @@ public class SceneLoader : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Backspace))
+        if (Input.GetKeyDown(KeyCode.R))
         {
             LoadScene("MainMenuScene");
         }
@@ -30,6 +30,11 @@ public class SceneLoader : MonoBehaviour
     public void LoadScene(string sceneName)
     {
         SceneManager.LoadScene(sceneName);
+    }
+
+    public string GetActiveSceneName()
+    {
+        return SceneManager.GetActiveScene().name;
     }
 
 }

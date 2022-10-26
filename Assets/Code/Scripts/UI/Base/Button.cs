@@ -68,7 +68,7 @@ public abstract class Button : MonoBehaviour
     // show pressed for a delay, and then display the proper sprite
     private IEnumerator ButtonPressedCR()
     {
-        yield return new WaitForSeconds(_pressedDuration/2);
+        yield return new WaitForSeconds(_pressedDuration / 2);
         ButtonPress();
         yield return new WaitForSeconds(_pressedDuration / 2);
         _isPressed = false;

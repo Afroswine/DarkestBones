@@ -14,8 +14,11 @@ public class PlayerTurnCombatState : CombatState
 
         _playerTurnCount++;
         _playerTurnTextUI.text = "Player Turn: " + _playerTurnCount.ToString();
+        _playerTurnTextUI.text += "\nSpace: Enter EnemyTurnCombatState.";
+        _playerTurnTextUI.text += "\nEscape: Enter WinState.";
         // subscribe
         StateMachine.Input.PressedConfirm += OnPressedConfirm;
+        StateMachine.Input.PressedCancel += OnPressedCancel;
     }
 
     public override void Exit()
@@ -23,6 +26,7 @@ public class PlayerTurnCombatState : CombatState
         _playerTurnTextUI.gameObject.SetActive(false);
         // unsubscribe
         StateMachine.Input.PressedConfirm -= OnPressedConfirm;
+        StateMachine.Input.PressedCancel -= OnPressedCancel;
 
         Debug.Log("Player Turn: Exiting...");
     }
@@ -32,5 +36,11 @@ public class PlayerTurnCombatState : CombatState
         Debug.Log("Attempt to enter Enemy State!");
         // change the enemy turn state
         StateMachine.ChangeState<EnemyTurnCombatState>();
+    }
+
+    private void OnPressedCancel()
+    {
+        Debug.Log("Attempt to enter Win State!");
+        StateMachine.ChangeState<WinCombatState>();
     }
 }
