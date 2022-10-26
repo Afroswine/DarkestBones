@@ -32,7 +32,8 @@ public class WinCombatState : CombatState
     private void OnPressedConfirm()
     {
         Debug.Log("Attempt to enter MainMenuState");
-        MainMenuStateMachine.ChangeState<SetupMainMenuState>();
+        //MainMenuStateMachine.ChangeState<SetupMainMenuState>();
+        SceneLoader.Instance.LoadScene("MainMenuScene");
     }
 
     private void OnPressedCancel()

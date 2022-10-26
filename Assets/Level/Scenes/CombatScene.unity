@@ -203,6 +203,63 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 145894965}
   m_CullTransparentMesh: 1
+--- !u!1001 &434670926
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1058447788943351503, guid: a9d9105f0c87dd0438b472a5f0427592, type: 3}
+      propertyPath: m_RootOrder
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1058447788943351503, guid: a9d9105f0c87dd0438b472a5f0427592, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1058447788943351503, guid: a9d9105f0c87dd0438b472a5f0427592, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1058447788943351503, guid: a9d9105f0c87dd0438b472a5f0427592, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1058447788943351503, guid: a9d9105f0c87dd0438b472a5f0427592, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1058447788943351503, guid: a9d9105f0c87dd0438b472a5f0427592, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1058447788943351503, guid: a9d9105f0c87dd0438b472a5f0427592, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1058447788943351503, guid: a9d9105f0c87dd0438b472a5f0427592, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1058447788943351503, guid: a9d9105f0c87dd0438b472a5f0427592, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1058447788943351503, guid: a9d9105f0c87dd0438b472a5f0427592, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1058447788943351503, guid: a9d9105f0c87dd0438b472a5f0427592, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1058447788943351504, guid: a9d9105f0c87dd0438b472a5f0427592, type: 3}
+      propertyPath: m_Name
+      value: GameManager
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: a9d9105f0c87dd0438b472a5f0427592, type: 3}
 --- !u!1001 &485696126
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -878,14 +935,26 @@ PrefabInstance:
       propertyPath: _playerTurnTextUI
       value: 
       objectReference: {fileID: 2041081023}
+    - target: {fileID: 2171917204263474538, guid: cfdfdbb024c34d4478a0a49a6b2d4840, type: 3}
+      propertyPath: _mainMenuStateMachine
+      value: 
+      objectReference: {fileID: 5115240890110250675}
     - target: {fileID: 2171917204263474539, guid: cfdfdbb024c34d4478a0a49a6b2d4840, type: 3}
       propertyPath: _enemyTurnTextUI
       value: 
       objectReference: {fileID: 774595267}
+    - target: {fileID: 2171917204263474539, guid: cfdfdbb024c34d4478a0a49a6b2d4840, type: 3}
+      propertyPath: _mainMenuStateMachine
+      value: 
+      objectReference: {fileID: 5115240890110250675}
     - target: {fileID: 2171917204263474540, guid: cfdfdbb024c34d4478a0a49a6b2d4840, type: 3}
       propertyPath: _loseTextUI
       value: 
       objectReference: {fileID: 1595640578}
+    - target: {fileID: 2171917204263474540, guid: cfdfdbb024c34d4478a0a49a6b2d4840, type: 3}
+      propertyPath: _mainMenuStateMachine
+      value: 
+      objectReference: {fileID: 5115240890110250675}
     - target: {fileID: 2171917204263474541, guid: cfdfdbb024c34d4478a0a49a6b2d4840, type: 3}
       propertyPath: _mainMenuStateMachine
       value: 
@@ -894,6 +963,10 @@ PrefabInstance:
       propertyPath: _winTextUI
       value: 
       objectReference: {fileID: 145894967}
+    - target: {fileID: 2171917204263474543, guid: cfdfdbb024c34d4478a0a49a6b2d4840, type: 3}
+      propertyPath: _mainMenuStateMachine
+      value: 
+      objectReference: {fileID: 5115240890110250675}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cfdfdbb024c34d4478a0a49a6b2d4840, type: 3}
 --- !u!1001 &5115240890110250674
