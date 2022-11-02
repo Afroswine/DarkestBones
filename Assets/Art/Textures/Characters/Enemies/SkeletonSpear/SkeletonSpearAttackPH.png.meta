@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: e540dc61ae24266478270005e46fea53
+guid: ff507eb1d9c96ea43ba91624d4dd7014
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -45,8 +45,8 @@ TextureImporter:
   spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
-  alignment: 0
-  spritePivot: {x: 0.5, y: 0.5}
+  alignment: 7
+  spritePivot: {x: 0.5, y: 0}
   spritePixelsToUnits: 100
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
@@ -104,64 +104,43 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: button_x64_0
+      name: SkeletonSpearAttackPH_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 64
-        height: 21
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        height: 80
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5a54d95e78e8c9a40b6c7864fddf1f00
-      internalID: -40164647
+      spriteID: eec2f81bcb17afb458de6935e135245e
+      internalID: -782970523
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: button_x64_1
+      name: SkeletonSpearAttackPH_1
       rect:
         serializedVersion: 2
         x: 64
         y: 0
         width: 64
-        height: 21
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        height: 80
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 36287d98c2acd0043bba5ae17e4dbefd
-      internalID: 677307915
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: button_x64_2
-      rect:
-        serializedVersion: 2
-        x: 128
-        y: 0
-        width: 64
-        height: 21
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 27150eda4dc859446af040cae56e8219
-      internalID: -130878466
+      spriteID: 4cedc403489b23f42b619cfebaaed2dc
+      internalID: -832504655
       vertices: []
       indices: 
       edges: []
@@ -177,9 +156,8 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      button_x64_0: -40164647
-      button_x64_2: -130878466
-      button_x64_1: 677307915
+      SkeletonSpearAttackPH_1: -832504655
+      SkeletonSpearAttackPH_0: -782970523
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

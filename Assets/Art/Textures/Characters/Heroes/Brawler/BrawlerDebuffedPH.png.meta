@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 33cc251d9e70f4147a5a7254cb4bfcee
+guid: 399d2004e8fdd05429b5c0fc2b9d7e54
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -104,64 +104,43 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: button_x80_0
+      name: BrawlerDebuffedPH_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 80
-        height: 21
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 64
+        height: 80
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c18c4ec2a79a63a469b10d01e28b9d24
-      internalID: -519213626
+      spriteID: 0a66e34a42c80d042ba555ca96e1c271
+      internalID: -1018361945
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: button_x80_1
+      name: BrawlerDebuffedPH_1
       rect:
         serializedVersion: 2
-        x: 80
+        x: 64
         y: 0
-        width: 80
-        height: 21
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 64
+        height: 80
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 51fa65430a776ee4f8739a7b816c4455
-      internalID: -565661998
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: button_x80_2
-      rect:
-        serializedVersion: 2
-        x: 160
-        y: 0
-        width: 80
-        height: 21
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: c7f4d1e992f915149b1edf66e860769e
-      internalID: -2014724938
+      spriteID: 9d846ca67fe57904e8cd8efa7f8aff8c
+      internalID: -442504317
       vertices: []
       indices: 
       edges: []
@@ -177,9 +156,8 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      button_x80_1: -565661998
-      button_x80_2: -2014724938
-      button_x80_0: -519213626
+      BrawlerDebuffedPH_1: -442504317
+      BrawlerDebuffedPH_0: -1018361945
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

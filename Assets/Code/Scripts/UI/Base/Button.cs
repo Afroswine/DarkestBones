@@ -1,10 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 [RequireComponent(typeof(SpriteRenderer))]
 [RequireComponent(typeof(BoxCollider2D))]
-public abstract class Button : MonoBehaviour
+public class Button : MonoBehaviour
 {
     [Header("Sprites")]
     [SerializeField] protected Sprite _spriteNeutral;
@@ -12,6 +13,8 @@ public abstract class Button : MonoBehaviour
     [SerializeField] protected Sprite _spritePressed;
     [Header("Pressed Delay")]
     [SerializeField] protected float _pressedDuration = 0.1f;
+    [Header("On Press")]
+    public UnityEvent OnPressed;
 
     protected SpriteRenderer _spriteRenderer;
     protected BoxCollider2D _collider;
@@ -60,9 +63,9 @@ public abstract class Button : MonoBehaviour
     }
 
     // Do stuff
-    protected virtual void ButtonPress()
+    protected void ButtonPress()
     {
-        Debug.Log("Button Pressed");
+        OnPressed.Invoke();
     }
 
     // show pressed for a delay, and then display the proper sprite
