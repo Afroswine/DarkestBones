@@ -16,8 +16,8 @@ public class LoseCombatState : CombatState
         _loseTextUI.text += "\nSpace: Enter MainMenuState";
         _loseTextUI.text += "\nEscape: Enter SetupCombatState";
 
-        StateMachine.Input.PressedConfirm += OnPressedConfirm;
-        StateMachine.Input.PressedCancel += OnPressedCancel;
+        SM.Input.PressedConfirm += OnPressedConfirm;
+        SM.Input.PressedCancel += OnPressedCancel;
     }
 
     public override void Exit()
@@ -25,8 +25,8 @@ public class LoseCombatState : CombatState
         Debug.Log("LoseCombat: Exiting...");
         _loseTextUI.gameObject.SetActive(false);
 
-        StateMachine.Input.PressedConfirm -= OnPressedConfirm;
-        StateMachine.Input.PressedCancel -= OnPressedCancel;
+        SM.Input.PressedConfirm -= OnPressedConfirm;
+        SM.Input.PressedCancel -= OnPressedCancel;
     }
 
     private void OnPressedConfirm()
@@ -39,6 +39,6 @@ public class LoseCombatState : CombatState
     private void OnPressedCancel()
     {
         Debug.Log("Attempt to enter SetupCombatState");
-        StateMachine.ChangeState<SetupCombatState>();
+        SM.ChangeState<SetupCombatState>();
     }
 }

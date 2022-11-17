@@ -7,7 +7,7 @@ public class ColliderFitSprite : MonoBehaviour
 {
     private void Awake()
     {
-        //runInEditMode = true;
+        runInEditMode = true;
     }
 
     void Update()

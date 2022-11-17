@@ -1,15 +1,15 @@
 using UnityEngine;
+using System;
 
 public class SetupCombatState : CombatState
 {
-    [SerializeField] int _numberOfEnemies = 2;
-
     bool _activated = false;
 
     public override void Enter()
     {
         Debug.Log("CombatSetup: ...Entering");
-        Debug.Log("Creating " + _numberOfEnemies + " enemies.");
+        //SM.Turn.ChangedTurn += Activate;
+
         // CANT change state while still in Enter()/Exit() transition!
         // DONT put ChangeState<> here.
         _activated = false;
@@ -18,27 +18,26 @@ public class SetupCombatState : CombatState
     public override void Tick()
     {
         // admittedly hacky for demo. You would usually have delays or Input.
-        
-        if(_activated == false)
+        if (!_activated)
         {
             _activated = true;
-            StateMachine.ChangeState<PlayerTurnCombatState>();
-        }
-        
-    }
+            SM.Turn.AddCharacters(SM.HeroParty.GetPartyMembers());
+            SM.Turn.AddCharacters(SM.EnemyParty.GetPartyMembers());
+            SM.Turn.InitializeTurns();
 
-    public void EnterPlayerTurnCombatState()
-    {
-        if (_activated == false)
-        {
-            _activated = true;
-            StateMachine.ChangeState<PlayerTurnCombatState>();
+            EnterNextCombatState();
         }
     }
 
     public override void Exit()
     {
         _activated = false;
+        //SM.Turn.ChangedTurn -= Activate;
         Debug.Log("CombatSetup: Exiting...");
+    }
+
+    private void Activate()
+    {
+        _activated = true;
     }
 }

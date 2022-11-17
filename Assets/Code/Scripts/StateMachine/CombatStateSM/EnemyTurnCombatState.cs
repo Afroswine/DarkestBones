@@ -21,9 +21,11 @@ public class EnemyTurnCombatState : CombatState
         _enemyTurnTextUI.text += "\nSpace: Enter PlayerTurnCombatState.";
         _enemyTurnTextUI.text += "\nEscape: Enter LoseState.";
 
-        StateMachine.Input.PressedConfirm += OnPressedConfirm;
-        StateMachine.Input.PressedCancel += OnPressedCancel;
-        //StartCoroutine(EnemyThinkingRoutine(_pauseDuration));
+        SM.Input.PressedConfirm += OnPressedConfirm;
+        SM.Input.PressedCancel += OnPressedCancel;
+
+        SM.Turn.ChangedTurn += EnterNextCombatState;
+        StartCoroutine(EnemyThinkingRoutine(_pauseDuration));
     }
 
     public override void Exit()
@@ -31,20 +33,22 @@ public class EnemyTurnCombatState : CombatState
         _enemyTurnTextUI.gameObject.SetActive(false);
         Debug.Log("Enemy Turn: Exit...");
 
-        StateMachine.Input.PressedConfirm -= OnPressedConfirm;
-        StateMachine.Input.PressedCancel -= OnPressedCancel;
+        SM.Input.PressedConfirm -= OnPressedConfirm;
+        SM.Input.PressedCancel -= OnPressedCancel;
+
+        SM.Turn.ChangedTurn -= EnterNextCombatState;
     }
 
     void OnPressedConfirm()
     {
         Debug.Log("Attempt to enter player turn state.");
-        StateMachine.ChangeState<PlayerTurnCombatState>();
+        SM.ChangeState<PlayerTurnCombatState>();
     }
 
     void OnPressedCancel()
     {
         Debug.Log("Attempt to enter lose combat state.");
-        StateMachine.ChangeState<LoseCombatState>();
+        SM.ChangeState<LoseCombatState>();
     }
 
     IEnumerator EnemyThinkingRoutine(float pauseDuration)
@@ -55,6 +59,7 @@ public class EnemyTurnCombatState : CombatState
         Debug.Log("Enemy performs action");
         EnemyTurnEnded?.Invoke();
         // turn over. Go back to player.
-        StateMachine.ChangeState<PlayerTurnCombatState>();
+        //SM.ChangeState<PlayerTurnCombatState>();
+        SM.Turn.NextTurn();
     }
 }

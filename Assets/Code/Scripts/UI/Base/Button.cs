@@ -7,59 +7,79 @@ using UnityEngine.Events;
 [RequireComponent(typeof(BoxCollider2D))]
 public class Button : MonoBehaviour
 {
-    [Header("Sprites")]
-    [SerializeField] protected Sprite _spriteNeutral;
-    [SerializeField] protected Sprite _spriteSelected;
-    [SerializeField] protected Sprite _spritePressed;
-    [Header("Pressed Delay")]
-    [SerializeField] protected float _pressedDuration = 0.1f;
     [Header("On Press")]
     public UnityEvent OnPressed;
+
+    [Header("Sprites")]
+    [SerializeField] protected Sprite[] _sprites;
+    [Header("Pressed Delay")]
+    [SerializeField] protected float _pressedDuration = 0.1f;
+
+    private bool _isEnabled = true;
 
     protected SpriteRenderer _spriteRenderer;
     protected BoxCollider2D _collider;
 
     protected bool _isMouseOver = false;
     protected bool _isPressed = false;
+    
+    // controls whether the button can be clicked or selected
+    public void Enabled(bool isEnabled)
+    {
+        _isEnabled = isEnabled;
+    }
 
     private void Awake()
     {
         _spriteRenderer = GetComponent<SpriteRenderer>();
         _collider = GetComponent<BoxCollider2D>();
 
-        _spriteRenderer.sprite = _spriteNeutral;
+        _spriteRenderer.sprite = _sprites[0];
     }
 
     // show selected
     private void OnMouseEnter()
     {
-        _isMouseOver = true;
-        if (!_isPressed)
+        if (_isEnabled)
         {
-            _spriteRenderer.sprite = _spriteSelected;
+            _isMouseOver = true;
+            if (!_isPressed)
+            {
+                _spriteRenderer.sprite = _sprites[1];
+            }
         }
     }
 
     // show neutral
     private void OnMouseExit()
     {
-        _isMouseOver = false;
-        if (!_isPressed)
+        if (_isEnabled)
         {
-            _spriteRenderer.sprite = _spriteNeutral;
+            _isMouseOver = false;
+            if (!_isPressed)
+            {
+                _spriteRenderer.sprite = _sprites[0];
+            }
         }
     }
 
     // show pressed and perform ButtonPress()
     private void OnMouseDown()
     {
-        _isPressed = true;
-        _spriteRenderer.sprite = _spritePressed;
+        if (_isEnabled)
+        {
+            _isPressed = true;
+            _spriteRenderer.sprite = _sprites[2];
+        }
     }
 
+    // on mouse up, perform actions
     private void OnMouseUp()
     {
-        StartCoroutine(ButtonPressedCR());
+        if (_isEnabled)
+        {
+            StartCoroutine(ButtonPressedCR());
+        }
     }
 
     // Do stuff
@@ -78,11 +98,11 @@ public class Button : MonoBehaviour
 
         if (_isMouseOver)
         {
-            _spriteRenderer.sprite = _spriteSelected;
+            _spriteRenderer.sprite = _sprites[1];
         }
         else
         {
-            _spriteRenderer.sprite = _spriteNeutral;
+            _spriteRenderer.sprite = _sprites[0];
         }
     }
 }

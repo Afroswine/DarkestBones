@@ -16,8 +16,8 @@ public class WinCombatState : CombatState
         _winTextUI.text += "\nSpace: Enter MainMenuState";
         _winTextUI.text += "\nEscape: Enter SetupCombatState";
 
-        StateMachine.Input.PressedConfirm += OnPressedConfirm;
-        StateMachine.Input.PressedCancel += OnPressedCancel;
+        SM.Input.PressedConfirm += OnPressedConfirm;
+        SM.Input.PressedCancel += OnPressedCancel;
     }
 
     public override void Exit()
@@ -25,8 +25,8 @@ public class WinCombatState : CombatState
         Debug.Log("WinCombat: Exiting...");
         _winTextUI.gameObject.SetActive(false);
 
-        StateMachine.Input.PressedConfirm -= OnPressedConfirm;
-        StateMachine.Input.PressedCancel -= OnPressedCancel;
+        SM.Input.PressedConfirm -= OnPressedConfirm;
+        SM.Input.PressedCancel -= OnPressedCancel;
     }
 
     private void OnPressedConfirm()
@@ -39,6 +39,6 @@ public class WinCombatState : CombatState
     private void OnPressedCancel()
     {
         Debug.Log("Attempt to enter SetupCombatState");
-        StateMachine.ChangeState<SetupCombatState>();
+        SM.ChangeState<SetupCombatState>();
     }
 }
