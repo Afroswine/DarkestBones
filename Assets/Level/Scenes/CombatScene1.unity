@@ -563,7 +563,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 829010101}
-  - component: {fileID: 829010102}
+  - component: {fileID: 829010103}
   m_Layer: 0
   m_Name: HeroParty
   m_TagString: Untagged
@@ -586,7 +586,7 @@ Transform:
   m_Father: {fileID: 1344849029}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &829010102
+--- !u!114 &829010103
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -595,12 +595,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 829010100}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6dc687e0b0cad3b4a946494eff9b6e1a, type: 3}
+  m_Script: {fileID: 11500000, guid: 258fa4c9dd1590e42a6401fa404e3c86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _characters:
   - {fileID: 1942037017, guid: c7af2ac7fee955d489116cd2b74a181a, type: 3}
-  - {fileID: 1942037017, guid: c7af2ac7fee955d489116cd2b74a181a, type: 3}
+  - {fileID: 1942037017, guid: 65927a4436fac6743b583aa0ae0d59e7, type: 3}
+  _origin: {x: -24, y: 10, z: 0}
+  _spacing: -32
 --- !u!1 &1203083475
 GameObject:
   m_ObjectHideFlags: 0
@@ -620,7 +622,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1203083476
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -887,7 +889,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: You Win!
+  m_Text: You Lost :(...
 --- !u!222 &1595640579
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -905,7 +907,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1729169068}
-  - component: {fileID: 1729169069}
+  - component: {fileID: 1729169070}
   m_Layer: 0
   m_Name: EnemyParty
   m_TagString: Untagged
@@ -928,7 +930,7 @@ Transform:
   m_Father: {fileID: 1344849029}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1729169069
+--- !u!114 &1729169070
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -937,12 +939,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 1729169067}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a696831fd45874549905f00f1db3177a, type: 3}
+  m_Script: {fileID: 11500000, guid: 258fa4c9dd1590e42a6401fa404e3c86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _characters:
   - {fileID: 1751276445501726703, guid: 80caccf6b5a96744485a62e809e14645, type: 3}
-  - {fileID: 1751276445501726703, guid: 80caccf6b5a96744485a62e809e14645, type: 3}
+  - {fileID: 1751276445501726703, guid: ea277e0f85c85594f86f08a5256f677c, type: 3}
+  _origin: {x: 24, y: 10, z: 0}
+  _spacing: 32
 --- !u!1 &2041081021
 GameObject:
   m_ObjectHideFlags: 0
@@ -1081,15 +1085,19 @@ PrefabInstance:
     - target: {fileID: 2171917204263474536, guid: cfdfdbb024c34d4478a0a49a6b2d4840, type: 3}
       propertyPath: _heroParty
       value: 
-      objectReference: {fileID: 829010102}
+      objectReference: {fileID: 829010103}
     - target: {fileID: 2171917204263474536, guid: cfdfdbb024c34d4478a0a49a6b2d4840, type: 3}
       propertyPath: _enemyParty
       value: 
-      objectReference: {fileID: 1729169069}
+      objectReference: {fileID: 1729169070}
     - target: {fileID: 2171917204263474538, guid: cfdfdbb024c34d4478a0a49a6b2d4840, type: 3}
       propertyPath: _playerTurnTextUI
       value: 
       objectReference: {fileID: 2041081023}
+    - target: {fileID: 2171917204263474539, guid: cfdfdbb024c34d4478a0a49a6b2d4840, type: 3}
+      propertyPath: _pauseDuration
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 2171917204263474539, guid: cfdfdbb024c34d4478a0a49a6b2d4840, type: 3}
       propertyPath: _enemyTurnTextUI
       value: 

@@ -46,7 +46,7 @@ public class TurnController : MonoBehaviour
         for(int i = 0; i < characters.Length; i++)
         {
             _characterOrder[_addCharacterIndex] = characters[i];
-            Debug.Log(i + ": " + characters[i].name);
+            //Debug.Log(i + ": " + characters[i].name);
             _addCharacterIndex++;
         }
     }
@@ -56,26 +56,24 @@ public class TurnController : MonoBehaviour
     {
         // create a reference of the original character list
         Character[] characters = _characterOrder;
-
-        // the index of the (current) fastest character
-        int fastestIndex = 0;
+        Array.Copy(_characterOrder, characters, _characterOrder.Length);
 
         // Loop through the entire array once
         for(int i = 0; i < _characterOrder.Length; i++)
         {
-            // Compare each element in the array to the other elements
-            for (int j = fastestIndex; j < _characterOrder.Length; j++)
+            // Compare each element in the array to all other elements
+            for (int j = i+1; j < _characterOrder.Length; j++)
             {
-                if (_characterOrder[i].Speed > characters[j].Speed)
+                if (_characterOrder[i].BaseSpeed < _characterOrder[j].BaseSpeed)
                 {
-                    _characterOrder[i] = characters[j];
-                }
-                else
-                {
-                    fastestIndex++;
+                    Character temp = _characterOrder[i];
+                    _characterOrder[i] = _characterOrder[j];
+                    _characterOrder[j] = temp;
                 }
             }
-            Debug.Log("_charactersTurnOrder[" + i + "] = " + _characterOrder[i].name);
+
+
+            //Debug.Log("_charactersTurnOrder[" + i + "] = " + _characterOrder[i].name);
         }
 
         ChangedTurn?.Invoke();
@@ -83,6 +81,9 @@ public class TurnController : MonoBehaviour
         // Set initial turn index
         _currentTurn = 0;
         _isDisplaying = true;
+        //Debug.Log("TurnController... InitializeTurns");
+        //Debug.Log("TurnController... CurrentTurn: " + CurrentTurn);
+        //Debug.Log("TurnController... CurrentTurnCharacter[" + CurrentTurn + "]: " + CharacterOrder[CurrentTurn].gameObject);
     }
 
     private void DisplayTurnIndicator(bool isDisplaying)
@@ -101,15 +102,22 @@ public class TurnController : MonoBehaviour
     public void NextTurn()
     {
         _currentTurn++;
-        Debug.Log("NextTurn...");
-        Debug.Log("CurrentTurnCharacter[" + CurrentTurn + "]: " + CharacterOrder[CurrentTurn].name);
+        if(_currentTurn >= CharacterOrder.Length)
+        {
+            _currentTurn = 0;
+        }
+        //Debug.Log("TurnController... NextTurn...");
+        //Debug.Log("TurnController... CurrentTurn: " + CurrentTurn);
+        //Debug.Log("TurnController... CurrentTurnCharacter[" + CurrentTurn + "]: " + CharacterOrder[CurrentTurn].gameObject);
+        Character character = _characterOrder[_currentTurn];
+        //Debug.Log("Party Position: " + character.Party.Positions[character.PartyPosition]);
         ChangedTurn?.Invoke();
     }
 
     // gets the character of the current turn
     public Character GetCurrentTurnCharacter()
     {
-        Debug.Log("CurrentTurnCharacter["+CurrentTurn+"]: " + CharacterOrder[CurrentTurn].name);
+        Debug.Log("TurnController... CurrentTurnCharacter[" + CurrentTurn+"]: " + CharacterOrder[CurrentTurn].gameObject);
         return CharacterOrder[CurrentTurn];
     }
 }

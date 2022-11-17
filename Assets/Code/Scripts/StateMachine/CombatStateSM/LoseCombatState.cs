@@ -12,9 +12,9 @@ public class LoseCombatState : CombatState
         Debug.Log("LoseCombat: ...Entering");
         _loseTextUI.gameObject.SetActive(true);
 
-        _loseTextUI.text = "Lose Win";
-        _loseTextUI.text += "\nSpace: Enter MainMenuState";
-        _loseTextUI.text += "\nEscape: Enter SetupCombatState";
+        //_loseTextUI.text = "You Lose ";
+        _loseTextUI.text += "\nSpace: Enter MainMenu";
+        //_loseTextUI.text += "\nBackSpace: Enter MainMenu";
 
         SM.Input.PressedConfirm += OnPressedConfirm;
         SM.Input.PressedCancel += OnPressedCancel;

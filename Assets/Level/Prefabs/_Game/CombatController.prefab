@@ -134,6 +134,7 @@ MonoBehaviour:
   _heroParty: {fileID: 0}
   _enemyParty: {fileID: 0}
   _turn: {fileID: 48352070}
+  _combatUI: {fileID: 2171917205771610209}
 --- !u!114 &2171917204263474541
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -158,7 +159,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd3cac2a9eef6374286c44294e195e4e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _playerTurnTextUI: {fileID: 0}
 --- !u!114 &2171917204263474539
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -171,7 +171,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df0ec16037ca8bc4fbc02fcf5b5c453e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _enemyTurnTextUI: {fileID: 0}
   _pauseDuration: 1.5
 --- !u!114 &2171917204263474543
 MonoBehaviour:
@@ -348,6 +347,10 @@ PrefabInstance:
       propertyPath: OnPressed.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
+    - target: {fileID: 3959772764150458591, guid: b77f74c3ed898bc4693a97c6361576d1, type: 3}
+      propertyPath: _portraitRenderer
+      value: 
+      objectReference: {fileID: 2943035740776438565}
     - target: {fileID: 3959772764150458592, guid: b77f74c3ed898bc4693a97c6361576d1, type: 3}
       propertyPath: m_RootOrder
       value: 3
@@ -401,5 +404,21 @@ PrefabInstance:
 --- !u!4 &2171917205771610206 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3959772764150458592, guid: b77f74c3ed898bc4693a97c6361576d1, type: 3}
+  m_PrefabInstance: {fileID: 2943035739898052798}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2171917205771610209 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3959772764150458591, guid: b77f74c3ed898bc4693a97c6361576d1, type: 3}
+  m_PrefabInstance: {fileID: 2943035739898052798}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f407d22198b6ba49a7f5f02513ddec7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!212 &2943035740776438565 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 1336220571, guid: b77f74c3ed898bc4693a97c6361576d1, type: 3}
   m_PrefabInstance: {fileID: 2943035739898052798}
   m_PrefabAsset: {fileID: 0}

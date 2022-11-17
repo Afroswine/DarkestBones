@@ -24,9 +24,17 @@ public class Button : MonoBehaviour
     protected bool _isPressed = false;
     
     // controls whether the button can be clicked or selected
-    public void Enabled(bool isEnabled)
+    public void Enable(bool isEnabled)
     {
         _isEnabled = isEnabled;
+
+        // ensure button appears neutral
+        if (!isEnabled)
+        {
+            _isMouseOver = false;
+            _isPressed = false;
+            _spriteRenderer.sprite = _sprites[0];
+        }
     }
 
     private void Awake()
@@ -53,13 +61,10 @@ public class Button : MonoBehaviour
     // show neutral
     private void OnMouseExit()
     {
-        if (_isEnabled)
+        _isMouseOver = false;
+        if (!_isPressed)
         {
-            _isMouseOver = false;
-            if (!_isPressed)
-            {
-                _spriteRenderer.sprite = _sprites[0];
-            }
+            _spriteRenderer.sprite = _sprites[0];
         }
     }
 

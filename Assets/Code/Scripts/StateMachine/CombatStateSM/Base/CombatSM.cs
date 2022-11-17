@@ -4,15 +4,17 @@ public class CombatSM : StateMachine
 {
     public InputController Input => _input;
 
-    public HeroParty HeroParty => _heroParty;
-    public EnemyParty EnemyParty => _enemyParty;
+    public Party HeroParty => _heroParty;
+    public Party EnemyParty => _enemyParty;
     public TurnController Turn => _turn;
+    public CombatUI UI => _combatUI;
 
     [Header("CombatSM")]
     [SerializeField] InputController _input;
-    [SerializeField] HeroParty _heroParty;
-    [SerializeField] EnemyParty _enemyParty;
+    [SerializeField] Party _heroParty;
+    [SerializeField] Party _enemyParty;
     [SerializeField] TurnController _turn;
+    [SerializeField] CombatUI _combatUI;
     
     void Start()
     {

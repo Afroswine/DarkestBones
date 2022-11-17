@@ -6,9 +6,10 @@ public class Character : MonoBehaviour, IHealable
 {
     public int Health => _health;
     public int Speed => _speed;
+    public int BaseSpeed => _baseSpeed;
     public bool TurnCompleted => _turnCompleted;
     public int PartyPosition => _partyPosition;
-    public Party Party;
+    public Party Party = null;
 
     // Base Stats
     [Header("Character")]

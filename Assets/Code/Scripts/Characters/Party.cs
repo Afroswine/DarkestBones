@@ -21,8 +21,10 @@ public class Party : MonoBehaviour
     [SerializeField] Character[] _characters = new Character[0];
 
     // the origin of the first character and spacing between characters thereafter
-    protected Vector3 _origin = new Vector3(XPOS, YPOS, ZPOS);
-    protected float _spacing = SPACING;
+    //protected Vector3 _origin = new Vector3(XPOS, YPOS, ZPOS);
+    //protected float _spacing = SPACING;
+    [SerializeField] Vector3 _origin = new Vector3(XPOS, YPOS, ZPOS);
+    [SerializeField] float _spacing = SPACING;
 
     // the positions of the party members
     private Vector3[] _positions = new Vector3[MAXCHARACTERS];
@@ -40,10 +42,7 @@ public class Party : MonoBehaviour
     private void Awake()
     {
         _characters = _characters.RemoveNulls();
-    }
 
-    private void Start()
-    {
         // Set the possible positions
         for (int i = 0; i < _positions.Length; i++)
         {
@@ -51,6 +50,11 @@ public class Party : MonoBehaviour
         }
 
         InstantiateParty();
+    }
+
+    private void Start()
+    {
+        
     }
 
     private void OnEnable()

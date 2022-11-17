@@ -12,9 +12,9 @@ public class WinCombatState : CombatState
         Debug.Log("WinCombat: ...Entering");
         _winTextUI.gameObject.SetActive(true);
 
-        _winTextUI.text = "You Win";
-        _winTextUI.text += "\nSpace: Enter MainMenuState";
-        _winTextUI.text += "\nEscape: Enter SetupCombatState";
+        //_winTextUI.text = "You Win";
+        _winTextUI.text += "\nSpace: Enter MainMenu";
+        //_winTextUI.text += "\nBackSpace: Enter SetupCombatState";
 
         SM.Input.PressedConfirm += OnPressedConfirm;
         SM.Input.PressedCancel += OnPressedCancel;

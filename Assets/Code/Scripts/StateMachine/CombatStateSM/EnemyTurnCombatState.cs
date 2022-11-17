@@ -11,6 +11,8 @@ public class EnemyTurnCombatState : CombatState
     [SerializeField] Text _enemyTurnTextUI;
     [SerializeField] float _pauseDuration = 1.5f;
 
+    private bool _activated = false;
+
     public override void Enter()
     {
         Debug.Log("Enemy Turn: ...Enter");
@@ -18,22 +20,35 @@ public class EnemyTurnCombatState : CombatState
         EnemyTurnBegan?.Invoke();
 
         _enemyTurnTextUI.text = "...Enemy Thinking...";
-        _enemyTurnTextUI.text += "\nSpace: Enter PlayerTurnCombatState.";
-        _enemyTurnTextUI.text += "\nEscape: Enter LoseState.";
+        _enemyTurnTextUI.text += "\nWaiting for enemy turn end.";
+        _enemyTurnTextUI.text += "\nBackSpace: Enter LoseState.";
 
-        SM.Input.PressedConfirm += OnPressedConfirm;
+        //SM.Input.PressedConfirm += OnPressedConfirm;
         SM.Input.PressedCancel += OnPressedCancel;
+        //SM.Input.PressedSwap += OnPressedCancel;
 
         SM.Turn.ChangedTurn += EnterNextCombatState;
-        StartCoroutine(EnemyThinkingRoutine(_pauseDuration));
+        SM.UI.EnableButtons(false);
+        _activated = false;
+        _cancelThinking = false;
+    }
+
+    public override void Tick()
+    {
+        if (!_activated)
+        {
+            _activated = true;
+            StartCoroutine(EnemyThinkingRoutine(_pauseDuration));
+        }
     }
 
     public override void Exit()
     {
         _enemyTurnTextUI.gameObject.SetActive(false);
         Debug.Log("Enemy Turn: Exit...");
+        _activated = false;
 
-        SM.Input.PressedConfirm -= OnPressedConfirm;
+        //SM.Input.PressedConfirm -= OnPressedConfirm;
         SM.Input.PressedCancel -= OnPressedCancel;
 
         SM.Turn.ChangedTurn -= EnterNextCombatState;
@@ -48,18 +63,24 @@ public class EnemyTurnCombatState : CombatState
     void OnPressedCancel()
     {
         Debug.Log("Attempt to enter lose combat state.");
+        _cancelThinking = true;
         SM.ChangeState<LoseCombatState>();
     }
 
+    private bool _cancelThinking = false;
     IEnumerator EnemyThinkingRoutine(float pauseDuration)
     {
         Debug.Log("Enemy Thinking...");
         yield return new WaitForSeconds(pauseDuration);
-
         Debug.Log("Enemy performs action");
-        EnemyTurnEnded?.Invoke();
-        // turn over. Go back to player.
-        //SM.ChangeState<PlayerTurnCombatState>();
-        SM.Turn.NextTurn();
+        if (!_cancelThinking)
+        {
+            EnemyTurnEnded?.Invoke();
+            // turn over. Go back to player.
+            //SM.ChangeState<PlayerTurnCombatState>();
+            SM.Turn.NextTurn();
+        }
+        
+        //_activated = false;
     }
 }

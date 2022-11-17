@@ -7,6 +7,8 @@ public class InputController : MonoBehaviour
     public event Action PressedCancel = delegate { };
     public event Action PressedLeft = delegate { };
     public event Action PressedRight = delegate { };
+    public event Action PressedSkip = delegate { };
+    public event Action PressedSwap = delegate { };
 
     private void Update()
     {
@@ -14,6 +16,16 @@ public class InputController : MonoBehaviour
         DetectCancel();
         DetectLeft();
         DetectRight();
+    }
+
+    public void OnSkip()
+    {
+        PressedSkip?.Invoke();
+    }
+
+    public void OnSwap()
+    {
+        PressedSwap?.Invoke();
     }
 
     private void DetectRight()
@@ -34,7 +46,7 @@ public class InputController : MonoBehaviour
 
     private void DetectCancel()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Backspace))
         {
             PressedCancel?.Invoke();
         }

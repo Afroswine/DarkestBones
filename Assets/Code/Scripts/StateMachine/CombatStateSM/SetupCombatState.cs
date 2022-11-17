@@ -12,6 +12,7 @@ public class SetupCombatState : CombatState
 
         // CANT change state while still in Enter()/Exit() transition!
         // DONT put ChangeState<> here.
+        SM.UI.EnableButtons(false);
         _activated = false;
     }
 

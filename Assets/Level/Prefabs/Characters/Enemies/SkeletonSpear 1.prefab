@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5484233114999072818}
   - component: {fileID: 1751276445501726703}
   m_Layer: 0
-  m_Name: SkeletonSpear
+  m_Name: SkeletonSpear 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -49,7 +49,7 @@ MonoBehaviour:
   _baseHealth: 40
   _basePower: 6
   _baseDefense: 0
-  _baseSpeed: 9
+  _baseSpeed: 7
 --- !u!1 &5484233115943033401
 GameObject:
   m_ObjectHideFlags: 0
