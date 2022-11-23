@@ -8,37 +8,31 @@ public class SetupCombatState : CombatState
     public override void Enter()
     {
         Debug.Log("CombatSetup: ...Entering");
-        //SM.Turn.ChangedTurn += Activate;
 
         // CANT change state while still in Enter()/Exit() transition!
         // DONT put ChangeState<> here.
         SM.UI.EnableButtons(false);
         _activated = false;
+
+        SM.HeroParty.InstantiateParty();
+        SM.EnemyParty.InstantiateParty();
+        SM.TurnController.AddCharacter(SM.HeroParty.GetPartyMembers());
+        SM.TurnController.AddCharacter(SM.EnemyParty.GetPartyMembers());
     }
 
     public override void Tick()
     {
         // admittedly hacky for demo. You would usually have delays or Input.
-        if (!_activated)
-        {
-            _activated = true;
-            SM.Turn.AddCharacters(SM.HeroParty.GetPartyMembers());
-            SM.Turn.AddCharacters(SM.EnemyParty.GetPartyMembers());
-            SM.Turn.InitializeTurns();
-
-            EnterNextCombatState();
-        }
+        if (_activated)
+            return;
+        
+        _activated = true;
+        SM.TurnController.Setup();
     }
 
     public override void Exit()
     {
         _activated = false;
-        //SM.Turn.ChangedTurn -= Activate;
         Debug.Log("CombatSetup: Exiting...");
-    }
-
-    private void Activate()
-    {
-        _activated = true;
     }
 }

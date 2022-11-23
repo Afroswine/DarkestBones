@@ -76,7 +76,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 998609199, guid: cf0691f762d122940a09033cb9955fb3, type: 3}
+  m_Sprite: {fileID: -555338345, guid: 2d2e12c116ef4d24991539ae95226948, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -145,3 +145,6 @@ MonoBehaviour:
   - {fileID: 1623284135, guid: cf0691f762d122940a09033cb9955fb3, type: 3}
   - {fileID: 1166951426, guid: cf0691f762d122940a09033cb9955fb3, type: 3}
   _pressedDuration: 0.1
+  _hoverAudio: {fileID: 8300000, guid: 08420ce77710710468a105e9614a1b4b, type: 3}
+  _pressDownAudio: {fileID: 8300000, guid: 1fdcac5e488a4ff42ad025a6ab3c763a, type: 3}
+  _pressUpAudio: {fileID: 8300000, guid: 32689bba7ec093f4aaf81e3b31d85262, type: 3}

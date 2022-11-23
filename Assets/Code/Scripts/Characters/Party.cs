@@ -7,7 +7,7 @@ using UnityEngine.Events;
 public class Party : MonoBehaviour
 {
     // The characters in this party.
-    public Character[] Characters => _characters;
+    public List<Character> PartyMembers => _partyMembers;
     public Vector3[] Positions => _positions;
 
     // Maximum party size
@@ -18,11 +18,9 @@ public class Party : MonoBehaviour
     protected const int SPACING = 32;
 
     [Header("CharacterParty")]
-    [SerializeField] Character[] _characters = new Character[0];
+    [SerializeField] List<Character> _partyMembers = new List<Character>();
 
     // the origin of the first character and spacing between characters thereafter
-    //protected Vector3 _origin = new Vector3(XPOS, YPOS, ZPOS);
-    //protected float _spacing = SPACING;
     [SerializeField] Vector3 _origin = new Vector3(XPOS, YPOS, ZPOS);
     [SerializeField] float _spacing = SPACING;
 
@@ -32,39 +30,20 @@ public class Party : MonoBehaviour
     // Cap party size
     private void OnValidate()
     {
-        if (_characters.Length > MAXCHARACTERS)
+        if(_partyMembers.Count > MAXCHARACTERS)
         {
             Debug.LogWarning("No more than " + MAXCHARACTERS + " Characters allowed in a party!");
-            Array.Resize(ref _characters, MAXCHARACTERS);
+            _partyMembers.Resize(MAXCHARACTERS);
         }
     }
 
     private void Awake()
     {
-        _characters = _characters.RemoveNulls();
-
         // Set the possible positions
         for (int i = 0; i < _positions.Length; i++)
         {
             _positions[i] = _origin + (new Vector3(_spacing, 0, 0) * i);
         }
-
-        InstantiateParty();
-    }
-
-    private void Start()
-    {
-        
-    }
-
-    private void OnEnable()
-    {
-        
-    }
-
-    public void ShiftPartyPositions()
-    {
-
     }
 
     // swap party positions between two characters
@@ -76,30 +55,32 @@ public class Party : MonoBehaviour
         UpdatePartyPositions();
     }
 
-
-    // Remove any null elements from _characters and return _characters
-    public Character[] GetPartyMembers()
+    public List<Character> GetPartyMembers()
     {
-        return _characters;
+        return _partyMembers;
     }
 
     // Create the party member game
-    private void InstantiateParty()
+    public void InstantiateParty()
     {
-        for(int i = 0; i < Characters.Length; i++)
+        for(int i = 0; i < PartyMembers.Count; i++)
         {
-            Characters[i].Party = this;
-            Characters[i].Reposition(i);
-            GameObject gameObject = Characters[i].gameObject;
+            GameObject gameObject = PartyMembers[i].gameObject;
             Instantiate(gameObject, _positions[i], Quaternion.identity);
+            Character character = gameObject.GetComponent<Character>();
+            character.Party = this;
+            character.Reposition(i);
+
+            // TODO - shouldn't need to call ResetStats from here, but it's the only way to set current stats before they are read atm...
+            character.Stats.ResetStats();
         }
     }
 
     public void UpdatePartyPositions()
     {
-        for(int i = 0; i < Characters.Length; i++)
+        for(int i = 0; i < PartyMembers.Count; i++)
         {
-            Character character = Characters[i];
+            Character character = PartyMembers[i];
             character.gameObject.transform.position = _positions[character.PartyPosition];
         }
     }

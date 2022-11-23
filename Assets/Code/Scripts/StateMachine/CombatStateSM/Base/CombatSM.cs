@@ -2,12 +2,11 @@ using UnityEngine;
 
 public class CombatSM : StateMachine
 {
-    public InputController Input => _input;
-
     public Party HeroParty => _heroParty;
     public Party EnemyParty => _enemyParty;
-    public TurnController Turn => _turn;
+    public TurnController TurnController => _turn;
     public CombatUI UI => _combatUI;
+    public InputController Input => _input;
 
     [Header("CombatSM")]
     [SerializeField] InputController _input;

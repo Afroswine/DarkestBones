@@ -10,8 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 5484233114999072818}
   - component: {fileID: 1751276445501726703}
+  - component: {fileID: 2484929006887859167}
   m_Layer: 0
-  m_Name: SkeletonSpear 1
+  m_Name: SkeletonFighter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -25,7 +26,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5484233114999072819}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.4, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -46,10 +47,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Party: {fileID: 0}
-  _baseHealth: 40
+  _stats: {fileID: 2484929006887859167}
+--- !u!114 &2484929006887859167
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5484233114999072819}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b3b2771cbb4ac6438b9248f0932b285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _maxHealth: 30
   _basePower: 6
+  _baseSpeed: 12
   _baseDefense: 0
-  _baseSpeed: 7
 --- !u!1 &5484233115943033401
 GameObject:
   m_ObjectHideFlags: 0

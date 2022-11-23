@@ -10,33 +10,21 @@ public class Button : MonoBehaviour
     [Header("On Press")]
     public UnityEvent OnPressed;
 
-    [Header("Sprites")]
-    [SerializeField] protected Sprite[] _sprites;
-    [Header("Pressed Delay")]
+    [Header("Button")]
+    [SerializeField] protected List<Sprite> _sprites = new(3);
     [SerializeField] protected float _pressedDuration = 0.1f;
-
-    private bool _isEnabled = true;
+    [SerializeField] AudioClip _hoverAudio;
+    [SerializeField] AudioClip _pressDownAudio;
+    [SerializeField] AudioClip _pressUpAudio;
 
     protected SpriteRenderer _spriteRenderer;
     protected BoxCollider2D _collider;
+    private AudioSource _audioSource;
 
-    protected bool _isMouseOver = false;
-    protected bool _isPressed = false;
+    private bool _isEnabled = true;
+    private bool _isMouseOver = false;
+    private bool _isPressed = false;
     
-    // controls whether the button can be clicked or selected
-    public void Enable(bool isEnabled)
-    {
-        _isEnabled = isEnabled;
-
-        // ensure button appears neutral
-        if (!isEnabled)
-        {
-            _isMouseOver = false;
-            _isPressed = false;
-            _spriteRenderer.sprite = _sprites[0];
-        }
-    }
-
     private void Awake()
     {
         _spriteRenderer = GetComponent<SpriteRenderer>();
@@ -45,47 +33,79 @@ public class Button : MonoBehaviour
         _spriteRenderer.sprite = _sprites[0];
     }
 
-    // show selected
-    private void OnMouseEnter()
+    // controls whether the button can be clicked or selected
+    public void Enable(bool isEnabled)
     {
-        if (_isEnabled)
-        {
-            _isMouseOver = true;
-            if (!_isPressed)
-            {
-                _spriteRenderer.sprite = _sprites[1];
-            }
-        }
+        _isEnabled = isEnabled;
+
+        // ensure button appears neutral
+        if (isEnabled)
+            return;
+
+        _isMouseOver = false;
+        _isPressed = false;
+        _spriteRenderer.sprite = _sprites[0];
     }
 
+    public void Set(Button button)
+    {
+        if (button == null)
+            return;
+
+        _sprites = new List<Sprite>(button._sprites);
+        _pressedDuration = button._pressedDuration;
+        _spriteRenderer.sprite = _sprites[0];
+        OnPressed = button.OnPressed;
+    }
+
+    #region Mouse Interactions
     // show neutral
     private void OnMouseExit()
     {
+        if (!_isEnabled) return;
         _isMouseOver = false;
-        if (!_isPressed)
-        {
-            _spriteRenderer.sprite = _sprites[0];
-        }
+        _isPressed = false;
+        _spriteRenderer.sprite = _sprites[0];
+
+        if (_audioSource == null) return;
+        _audioSource.Stop();
     }
 
     // show pressed and perform ButtonPress()
     private void OnMouseDown()
     {
-        if (_isEnabled)
-        {
-            _isPressed = true;
-            _spriteRenderer.sprite = _sprites[2];
-        }
+        if (!_isEnabled) return;
+        _isPressed = true;
+        _spriteRenderer.sprite = _sprites[2];
+
+        if (_pressDownAudio == null) return;
+        _audioSource = AudioHelper.PlayClip2D(_pressDownAudio, 1f);
+    }
+
+    // show selected 
+    private void OnMouseOver()
+    {
+        if (!_isEnabled) return;
+        _isMouseOver = true;
+        if (_isPressed) return;
+        _spriteRenderer.sprite = _sprites[1];
+    }
+
+    private void OnMouseEnter()
+    {
+        if (!_isEnabled) return;
+        if (_hoverAudio == null) return;
+        //_audioSource = AudioHelper.PlayClip2D(_hoverAudio, 1f);
     }
 
     // on mouse up, perform actions
     private void OnMouseUp()
     {
-        if (_isEnabled)
-        {
-            StartCoroutine(ButtonPressedCR());
-        }
+        if (!_isEnabled) return;
+        if (!_isPressed) return;
+        StartCoroutine(ButtonPressedCR());
     }
+    #endregion Mouse Interactions END
 
     // Do stuff
     protected void ButtonPress()
@@ -102,12 +122,11 @@ public class Button : MonoBehaviour
         _isPressed = false;
 
         if (_isMouseOver)
-        {
             _spriteRenderer.sprite = _sprites[1];
-        }
         else
-        {
             _spriteRenderer.sprite = _sprites[0];
-        }
+
+        if (_pressUpAudio != null)
+            _audioSource = AudioHelper.PlayClip2D(_pressUpAudio, 1f);
     }
 }

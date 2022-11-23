@@ -15,22 +15,16 @@ public class EnemyTurnCombatState : CombatState
 
     public override void Enter()
     {
-        Debug.Log("Enemy Turn: ...Enter");
-        _enemyTurnTextUI.gameObject.SetActive(true);
-        EnemyTurnBegan?.Invoke();
-
-        _enemyTurnTextUI.text = "...Enemy Thinking...";
-        _enemyTurnTextUI.text += "\nWaiting for enemy turn end.";
-        _enemyTurnTextUI.text += "\nBackSpace: Enter LoseState.";
-
-        //SM.Input.PressedConfirm += OnPressedConfirm;
+        Debug.Log("Enemy Turn: ...Entering");
         SM.Input.PressedCancel += OnPressedCancel;
-        //SM.Input.PressedSwap += OnPressedCancel;
-
-        SM.Turn.ChangedTurn += EnterNextCombatState;
+        
         SM.UI.EnableButtons(false);
         _activated = false;
-        _cancelThinking = false;
+        _enemyTurnTextUI.gameObject.SetActive(true);
+
+        _enemyTurnTextUI.text = "Enemy Turn";
+
+        EnemyTurnBegan?.Invoke();
     }
 
     public override void Tick()
@@ -45,42 +39,26 @@ public class EnemyTurnCombatState : CombatState
     public override void Exit()
     {
         _enemyTurnTextUI.gameObject.SetActive(false);
-        Debug.Log("Enemy Turn: Exit...");
+        Debug.Log("Enemy Turn: Exiting...");
         _activated = false;
 
-        //SM.Input.PressedConfirm -= OnPressedConfirm;
         SM.Input.PressedCancel -= OnPressedCancel;
 
-        SM.Turn.ChangedTurn -= EnterNextCombatState;
-    }
-
-    void OnPressedConfirm()
-    {
-        Debug.Log("Attempt to enter player turn state.");
-        SM.ChangeState<PlayerTurnCombatState>();
+        EnemyTurnEnded?.Invoke();
     }
 
     void OnPressedCancel()
     {
         Debug.Log("Attempt to enter lose combat state.");
-        _cancelThinking = true;
         SM.ChangeState<LoseCombatState>();
     }
 
-    private bool _cancelThinking = false;
     IEnumerator EnemyThinkingRoutine(float pauseDuration)
     {
-        Debug.Log("Enemy Thinking...");
+        //Debug.Log("Enemy Thinking...");
         yield return new WaitForSeconds(pauseDuration);
-        Debug.Log("Enemy performs action");
-        if (!_cancelThinking)
-        {
-            EnemyTurnEnded?.Invoke();
-            // turn over. Go back to player.
-            //SM.ChangeState<PlayerTurnCombatState>();
-            SM.Turn.NextTurn();
-        }
-        
-        //_activated = false;
+        //Debug.Log("Enemy performs action");
+        _activated = false;
+        SM.TurnController.NextTurn();
     }
 }

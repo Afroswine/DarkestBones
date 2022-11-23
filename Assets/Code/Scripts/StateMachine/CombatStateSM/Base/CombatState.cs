@@ -11,32 +11,24 @@ public class CombatState : State
         SM = GetComponent<CombatSM>();
     }
 
-    private void EnterPlayerTurnCombatState()
+    private void OnEnable()
     {
-        SM.ChangeState<PlayerTurnCombatState>();
+        SM.TurnController.ChangedTurn += EnterNextCombatState;
     }
 
-    private void EnterEnemyTurnCombatState()
+    private void OnDisable()
     {
-        SM.ChangeState<EnemyTurnCombatState>();
+        SM.TurnController.ChangedTurn -= EnterNextCombatState;
     }
 
-    protected void EnterNextCombatState()
+    // changes combat state based on the current turn's character
+    private void EnterNextCombatState()
     {
-        // if the fastest character is a hero...
-        if (SM.Turn.CharacterOrder[SM.Turn.CurrentTurn].GetComponent<Hero>() != null)
-        {
-            //Debug.Log("It's a hero!");
-            EnterPlayerTurnCombatState();
-        }
-        else if (SM.Turn.CharacterOrder[SM.Turn.CurrentTurn].GetComponent<Enemy>() != null)
-        {
-            //Debug.Log("It's an enemy!");
-            EnterEnemyTurnCombatState();
-        }
+        if (SM.TurnController.CurrentCharacter().GetComponent<Hero>() != null)
+            SM.ChangeState<PlayerTurnCombatState>();
+        else if (SM.TurnController.CurrentCharacter().GetComponent<Enemy>() != null) 
+            SM.ChangeState<EnemyTurnCombatState>();
         else
-        {
             Debug.LogWarning("TurnOrder.CharactersTurnOrder[] contains a non hero/enemy!");
-        }
     }
 }

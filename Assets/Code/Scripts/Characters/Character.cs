@@ -2,35 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(CharacterStats))]
 public class Character : MonoBehaviour, IHealable
 {
-    public int Health => _health;
-    public int Speed => _speed;
-    public int BaseSpeed => _baseSpeed;
-    public bool TurnCompleted => _turnCompleted;
+    public CharacterStats Stats => _stats;
+    public int Health => Stats.Health;
     public int PartyPosition => _partyPosition;
+    [HideInInspector]
     public Party Party = null;
-
-    // Base Stats
-    [Header("Character")]
-    [Tooltip("Max/Base HP.")]
-    [SerializeField] private int _baseHealth = 40;
-    [Tooltip("Potency of this character's abilities.")]
-    [SerializeField] private int _basePower = 6;
-    [Tooltip("% Damage Reduction.")]
-    [SerializeField] [Range(0f, 0.8f)] private float _baseDefense = 0.0f;
-    [Tooltip("Determines turn priority.")]
-    [SerializeField] private int _baseSpeed = 10;
-
-    // Current Stats
-    [Tooltip("The current health of this character.")]
-    private int _health;
-    [Tooltip("The current power of this character.")]
-    private int _power;
-    [Tooltip("The current defense of this character.")]
-    private float _defense;
-    [Tooltip("The current speed of this character.")]
-    private int _speed;
 
     // Abilities... might need state machine that takes into account the character's position
     protected CombatAbility _ability1;
@@ -38,10 +17,10 @@ public class Character : MonoBehaviour, IHealable
     protected CombatAbility _ability3;
     protected CombatAbility _ability4;
 
-    [Tooltip("Tracks if this character had their turn this round.")]
-    private bool _turnCompleted = false;
-
     private int _partyPosition = 0;
+
+    [SerializeField] private CharacterStats _stats; // getting the stats component in awake did not work, doing this for now.
+    //private Party _party;
 
     // Cap party size
     private void OnValidate()
@@ -56,26 +35,17 @@ public class Character : MonoBehaviour, IHealable
         }
     }
 
-    private void Start()
-    {
-        _health = _baseHealth;
-        _power = _basePower;
-        _defense = _baseDefense;
-        _speed = _baseSpeed;
-    }
-
     // Damage this character.
     public void Damage(int baseDamage)
     {
-        int realDamage = baseDamage - Mathf.FloorToInt(baseDamage * _defense);
-        if (realDamage < 1)
-            realDamage = 1;
+        baseDamage = Mathf.Abs(baseDamage);
+        int realDamage = baseDamage - Mathf.FloorToInt(baseDamage * _stats.Defense);
+        if (realDamage < 1) realDamage = 1;
 
-        _health -= realDamage;
-
-        if (_health <= 0)
+        _stats.DecreaseHealth(realDamage);
+        
+        if(_stats.Health <= 0)
         {
-            _health = 0;
             Kill();
         }
     }
@@ -84,11 +54,9 @@ public class Character : MonoBehaviour, IHealable
     public void Heal(int baseHeal)
     {
         int realHeal = baseHeal;
-        if (realHeal < 1)
-            realHeal = 1;
+        if (realHeal < 1) realHeal = 1;
 
-        // Ensure _health doesn't go above its maximum
-        _health = _health + realHeal >= _baseHealth ? _baseHealth : _health + realHeal;
+        _stats.IncreaseHealth(realHeal);
     }
 
     // Kill this character.

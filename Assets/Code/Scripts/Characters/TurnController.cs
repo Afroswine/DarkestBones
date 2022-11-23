@@ -1,123 +1,100 @@
 using System.Collections;
 using System.Collections.Generic;
 using System;
+using System.Linq;
 using UnityEngine;
 
 // add the active characters for this round, and set their turn order
 public class TurnController : MonoBehaviour
 {
-    // access the list of characters organized by turn order
-    public Character[] CharacterOrder => _characterOrder;
-    public int CurrentTurn => _currentTurn;
+    // public
+    public List<Character> TurnOrder => _turnOrder;
 
+    // events
     public event Action ChangedTurn = delegate { };
+    //public event Action ChangedRound = delegate { };
 
-    [Header("TurnController")]
-    [Header("TurnIndicator")]
-    [SerializeField] GameObject _turnIndicatorSprite;
-    [SerializeField] int _indicatorYOffset = 0;
-    //private GameObject _turnIndicator;
-    private bool _isDisplaying = false;
+    // private
+    [Tooltip("visually indicates which character's turn it is")]
+    [SerializeField] TurnIndicator _turnIndicator;
 
     [Tooltip("A sorted list of the characters based on their speed.")]
-    private Character[] _characterOrder = new Character[0];
-    [Tooltip("tracks the current character index for adding characters.")]
-    private int _addCharacterIndex = 0;
-    [Tooltip("The index of the character whose turn it currently is.")]
-    private int _currentTurn = 0;
+    private List<Character> _turnOrder = new List<Character>();
+    [Tooltip("Stores all (TODO - living and active) characters.")]
+    private List<Character> _activeCharacters = new List<Character>();
 
-    private void Start()
+    public void AddCharacter(List<Character> characters)
     {
-        _turnIndicatorSprite.GetComponent<SpriteRenderer>().enabled = false;
+        _activeCharacters.AddRange(characters);
+        //characters.ForEach(i => Debug.Log("AddCharacterList() "+i.name));
+    }
+    public void AddCharacter(Character character)
+    {
+        _activeCharacters.Add(character);
+        //Debug.Log("AddCharacter(): "+character.name);
     }
 
-    private void Update()
+    public void RemoveCharacter(List<Character> characters)
     {
-        DisplayTurnIndicator(_isDisplaying);
-    }
-
-    // add characters to _allcharacters to find turn order
-    public void AddCharacters(Character[] characters)
-    {
-        // resize _characterOrder to its length + characters.Length
-        Array.Resize(ref _characterOrder, characters.Length + _characterOrder.Length);
-
-        // add characters
-        for(int i = 0; i < characters.Length; i++)
+        foreach(var character in characters)
         {
-            _characterOrder[_addCharacterIndex] = characters[i];
-            //Debug.Log(i + ": " + characters[i].name);
-            _addCharacterIndex++;
+            _activeCharacters.Remove(character);
         }
+    }
+    public void RemoveCharacter(Character character)
+    {
+        _activeCharacters.Remove(character);
     }
 
     // sets the turn order of the added characters
-    public void InitializeTurns()
+    public void Setup()
     {
-        // create a reference of the original character list
-        Character[] characters = _characterOrder;
-        Array.Copy(_characterOrder, characters, _characterOrder.Length);
-
-        // Loop through the entire array once
-        for(int i = 0; i < _characterOrder.Length; i++)
-        {
-            // Compare each element in the array to all other elements
-            for (int j = i+1; j < _characterOrder.Length; j++)
-            {
-                if (_characterOrder[i].BaseSpeed < _characterOrder[j].BaseSpeed)
-                {
-                    Character temp = _characterOrder[i];
-                    _characterOrder[i] = _characterOrder[j];
-                    _characterOrder[j] = temp;
-                }
-            }
-
-
-            //Debug.Log("_charactersTurnOrder[" + i + "] = " + _characterOrder[i].name);
-        }
-
-        ChangedTurn?.Invoke();
-
-        // Set initial turn index
-        _currentTurn = 0;
-        _isDisplaying = true;
-        //Debug.Log("TurnController... InitializeTurns");
-        //Debug.Log("TurnController... CurrentTurn: " + CurrentTurn);
-        //Debug.Log("TurnController... CurrentTurnCharacter[" + CurrentTurn + "]: " + CharacterOrder[CurrentTurn].gameObject);
+        CreateTurnIndicator();
+        NextRound();
     }
 
-    private void DisplayTurnIndicator(bool isDisplaying)
+    private void CreateTurnIndicator()
     {
-        if (isDisplaying)
-        {
-            Character character = _characterOrder[_currentTurn];
-            Vector3 position = character.Party.Positions[character.PartyPosition];
-            position.y += _indicatorYOffset;
-            _turnIndicatorSprite.transform.position = position;
-            _turnIndicatorSprite.GetComponent<SpriteRenderer>().enabled = true;
-        }
+        if (_turnIndicator == null)
+            return;
+
+        _turnIndicator.TurnController = this;
+        _turnIndicator = Instantiate(_turnIndicator, this.transform);
     }
 
-    // increments _currentTurn
+    // sorts all remaining characters in '_turnOrder' by their speed, from highest to lowest
+    private void UpdateTurnOrder()
+    {
+        _turnOrder.Sort((x, y) => y.Stats.Speed.CompareTo(x.Stats.Speed));
+    }
+
+    // remove the first character from '_turnOrder' (the character who just went) and call
+    // 'UpdateTurnOrder()' in case any speed values have changed, invoke 'ChangedTurn'
     public void NextTurn()
     {
-        _currentTurn++;
-        if(_currentTurn >= CharacterOrder.Length)
+        if (TurnOrder.Count <= 1)   // if all characters had their turn this round (had turn = removed from turnOrder)
         {
-            _currentTurn = 0;
+            NextRound();
+            return;
         }
-        //Debug.Log("TurnController... NextTurn...");
-        //Debug.Log("TurnController... CurrentTurn: " + CurrentTurn);
-        //Debug.Log("TurnController... CurrentTurnCharacter[" + CurrentTurn + "]: " + CharacterOrder[CurrentTurn].gameObject);
-        Character character = _characterOrder[_currentTurn];
-        //Debug.Log("Party Position: " + character.Party.Positions[character.PartyPosition]);
+
+        _turnOrder.RemoveAt(0);
+        UpdateTurnOrder();
+        ChangedTurn?.Invoke();
+    }
+
+    // refill '_turnOrder' with the active characters in the scene, 
+    private void NextRound()
+    {
+        _turnOrder = new List<Character>(_activeCharacters);
+        UpdateTurnOrder();
+        foreach (var character in _turnOrder) Debug.Log("TurnOrder: " + character.name + ", Speed: " + character.Stats.Speed);
         ChangedTurn?.Invoke();
     }
 
     // gets the character of the current turn
-    public Character GetCurrentTurnCharacter()
+    public Character CurrentCharacter()
     {
-        Debug.Log("TurnController... CurrentTurnCharacter[" + CurrentTurn+"]: " + CharacterOrder[CurrentTurn].gameObject);
-        return CharacterOrder[CurrentTurn];
+        return TurnOrder[0];
     }
 }
