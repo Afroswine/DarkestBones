@@ -61,8 +61,10 @@ public class Party : MonoBehaviour
     }
 
     // Create the party member game
-    public void InstantiateParty()
+    public List<Character> InstantiateParty()
     {
+        List<Character> characters = new List<Character>();
+
         for(int i = 0; i < PartyMembers.Count; i++)
         {
             GameObject gameObject = PartyMembers[i].gameObject;
@@ -73,7 +75,10 @@ public class Party : MonoBehaviour
 
             // TODO - shouldn't need to call ResetStats from here, but it's the only way to set current stats before they are read atm...
             character.Stats.ResetStats();
+            characters.Add(character);
         }
+
+        return characters;
     }
 
     public void UpdatePartyPositions()

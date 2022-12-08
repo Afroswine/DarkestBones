@@ -105,7 +105,7 @@ public class Button : MonoBehaviour
     {
         if (!_isEnabled) return;
         if (_hoverAudio == null) return;
-        //_audioSource = AudioHelper.PlayClip2D(_hoverAudio, 1f);
+        _audioSource = AudioHelper.PlayClip2D(_hoverAudio, 1f);
     }
 
     // on mouse up, perform actions

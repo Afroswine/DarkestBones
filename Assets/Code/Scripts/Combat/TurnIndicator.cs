@@ -8,6 +8,7 @@ public class TurnIndicator : MonoBehaviour
     [Header("Turn Indicator")]
     //[SerializeField] private int _yOffset = -6;
     [SerializeField] private Vector3 _positionOffset = new Vector3(0, -6, 0);
+    [SerializeField] private AudioClip _changedTurnSound;
 
     [HideInInspector] public TurnController TurnController;
 
@@ -22,7 +23,8 @@ public class TurnIndicator : MonoBehaviour
     }
 
     private void Reposition()
-    { 
+    {
+        AudioHelper.PlayClip2D(_changedTurnSound, 1f);
         Character character = TurnController.CurrentCharacter();
         Vector3 characterPos = character.Party.Positions[character.PartyPosition];
         transform.position = characterPos + _positionOffset;

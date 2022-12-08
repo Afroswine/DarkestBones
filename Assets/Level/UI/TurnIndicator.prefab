@@ -98,4 +98,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _positionOffset: {x: 0, y: -6, z: -1}
+  _changedTurnSound: {fileID: 8300000, guid: 116f6572fdbba47428d491f0d2d13601, type: 3}
   TurnController: {fileID: 0}

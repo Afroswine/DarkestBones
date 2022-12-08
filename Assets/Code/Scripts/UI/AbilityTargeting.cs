@@ -57,7 +57,6 @@ public class AbilityTargeting : MonoBehaviour
     private void OnEnable()
     {
         _character.Targeted += ActivateTargeting;
-        //Debug.Log("OnEnable: " + _character.name);
     }
 
     private void OnDisable()
@@ -67,17 +66,6 @@ public class AbilityTargeting : MonoBehaviour
 
     private void Start()
     {
-        //_collider = GetComponent<BoxCollider2D>();
-        // get component references
-        _spriteRenderer = GetComponent<SpriteRenderer>();
-        _character = GetComponentInParent<Character>();
-
-        // default handler values
-        _selectHandler = DisplayAttackSelect;
-        _optionHandler = DisplayAttackOption;
-
-        IsDisplaying = false;
-
         transform.position = _character.transform.position + _positionOffset;
         DetermineDisplay();
     }

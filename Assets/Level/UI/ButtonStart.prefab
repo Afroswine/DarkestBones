@@ -76,12 +76,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -1095131283, guid: 2189444f2377f934d852fdd3f2f9ba65, type: 3}
+  m_Sprite: {fileID: -1095131283, guid: 81d6403587afe2643a7881bd42566f4d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.64, y: 0.21}
+  m_Size: {x: 64, y: 21}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -104,14 +104,14 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.64, y: 0.21}
-    newSize: {x: 0.64, y: 0.21}
+    oldSize: {x: 64, y: 21}
+    newSize: {x: 64, y: 21}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.64, y: 0.21}
+  m_Size: {x: 64, y: 21}
   m_EdgeRadius: 0
 --- !u!114 &6206294886688239287
 MonoBehaviour:
@@ -137,10 +137,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a6eda37c684e5a438ddc0a70c33ff83, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _spriteNeutral: {fileID: -1095131283, guid: 2189444f2377f934d852fdd3f2f9ba65, type: 3}
-  _spriteSelected: {fileID: 2028667946, guid: 2189444f2377f934d852fdd3f2f9ba65, type: 3}
-  _spritePressed: {fileID: 262471397, guid: 2189444f2377f934d852fdd3f2f9ba65, type: 3}
-  _pressedDuration: 0.1
   OnPressed:
     m_PersistentCalls:
       m_Calls:
@@ -156,3 +152,11 @@ MonoBehaviour:
           m_StringArgument: CombatScene1
           m_BoolArgument: 0
         m_CallState: 2
+  _sprites:
+  - {fileID: -1095131283, guid: 81d6403587afe2643a7881bd42566f4d, type: 3}
+  - {fileID: 2028667946, guid: 81d6403587afe2643a7881bd42566f4d, type: 3}
+  - {fileID: 262471397, guid: 81d6403587afe2643a7881bd42566f4d, type: 3}
+  _pressedDuration: 0.1
+  _hoverAudio: {fileID: 8300000, guid: 08420ce77710710468a105e9614a1b4b, type: 3}
+  _pressDownAudio: {fileID: 8300000, guid: 1fdcac5e488a4ff42ad025a6ab3c763a, type: 3}
+  _pressUpAudio: {fileID: 8300000, guid: 32689bba7ec093f4aaf81e3b31d85262, type: 3}

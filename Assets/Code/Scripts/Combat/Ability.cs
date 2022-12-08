@@ -60,7 +60,7 @@ public class Ability : MonoBehaviour
             {
                 if (_targetablePositions[i])
                 {
-                    //foes[i].InvokeTargeted();
+                    foes[i].InvokeTargeted();
                     foes[i].TargetSelect.IsDisplaying = true;
                     Debug.Log(foes[i].name + " InvokeTargeted()!");
                 }

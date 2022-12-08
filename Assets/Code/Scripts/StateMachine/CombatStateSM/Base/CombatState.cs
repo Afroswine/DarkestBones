@@ -1,11 +1,16 @@
-using UnityEngine;
+using System.Collections;
 using System.Collections.Generic;
+using System;
+using UnityEngine;
+using UnityEngine.Events;
 
 [RequireComponent(typeof(CombatSM))]
 public class CombatState : State
 {
     // state machine
     protected CombatSM SM { get; private set; }
+
+    protected List<Character> _activeCharacters = new List<Character>();
 
     private void Awake()
     {
