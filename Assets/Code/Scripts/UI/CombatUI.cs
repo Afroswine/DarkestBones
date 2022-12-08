@@ -7,11 +7,11 @@ public class CombatUI : MonoBehaviour
     [Header("CombatUI")]
     [SerializeField] SpriteRenderer _portraitRenderer;
     [Header("Ability Buttons")]
-    [SerializeField] List<Button> _abilities = new(4);
-    [SerializeField] Button _swap;
-    [SerializeField] Button _skip;
-    
-    private List<Button> _buttonList = new(6);
+    [SerializeField] List<AbilityButton> _abilities = new(4);
+    [SerializeField] AbilityButton _swap;
+    [SerializeField] AbilityButton _skip;
+
+    private List<AbilityButton> _abilityButtons = new(6);
 
     private void OnValidate()
     {
@@ -24,33 +24,40 @@ public class CombatUI : MonoBehaviour
 
     private void Start()
     {
-        _buttonList = new(_abilities);
-        _buttonList.Add(_swap);
-        _buttonList.Add(_skip);
+        _abilityButtons = new(_abilities);
+        _abilityButtons.Add(_swap);
+        _abilityButtons.Add(_skip);
     }
 
     public void EnableButtons(bool isEnabled)
     {
-        foreach(var button in _buttonList)
+        foreach(var button in _abilityButtons)
         {
             button.Enable(isEnabled);
         }
     }
 
-    private void SetAbilities(List<Button> newButtons)
+    private void SetAbilities(Hero hero, List<Ability> abilities)
     {
-        for(int i = 0; i < newButtons.Count; i++)
+        for (int i = 0; i < abilities.Count; i++)
         {
-            if(newButtons[i] != null)
+            if (abilities[i] != null)
             {
-                _abilities[i].Set(newButtons[i]);
+                _abilities[i].SetAbility(hero, abilities[i]);
             }
         }
+
+        _swap.SetAbility(hero);
+        _skip.SetAbility(hero);
+    }
+    private void SetAbilities(Enemy enemy, List<Ability> abilities)
+    {
+
     }
 
     public void SetHero(Hero hero)
     {
         _portraitRenderer.sprite = hero.Portrait;
-        SetAbilities(hero.AbilityButtonsList);
+        SetAbilities(hero, hero.Abilities);
     }
 }

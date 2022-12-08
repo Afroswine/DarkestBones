@@ -21,7 +21,7 @@ public class Button : MonoBehaviour
     protected BoxCollider2D _collider;
     private AudioSource _audioSource;
 
-    private bool _isEnabled = true;
+    protected bool _isEnabled = true;
     private bool _isMouseOver = false;
     private bool _isPressed = false;
     
@@ -47,7 +47,7 @@ public class Button : MonoBehaviour
         _spriteRenderer.sprite = _sprites[0];
     }
 
-    public void Set(Button button)
+    public virtual void Set(Button button)
     {
         if (button == null)
             return;
@@ -57,10 +57,20 @@ public class Button : MonoBehaviour
         _spriteRenderer.sprite = _sprites[0];
         OnPressed = button.OnPressed;
     }
+    public virtual void Set(Button button, List<Sprite> sprites)
+    {
+        if (button == null)
+            return;
+
+        _sprites = new List<Sprite>(sprites);
+        _pressedDuration = button._pressedDuration;
+        _spriteRenderer.sprite = _sprites[0];
+        OnPressed = button.OnPressed;
+    }
 
     #region Mouse Interactions
     // show neutral
-    private void OnMouseExit()
+    protected void OnMouseExit()
     {
         if (!_isEnabled) return;
         _isMouseOver = false;
@@ -72,7 +82,7 @@ public class Button : MonoBehaviour
     }
 
     // show pressed and perform ButtonPress()
-    private void OnMouseDown()
+    protected void OnMouseDown()
     {
         if (!_isEnabled) return;
         _isPressed = true;
@@ -83,7 +93,7 @@ public class Button : MonoBehaviour
     }
 
     // show selected 
-    private void OnMouseOver()
+    protected void OnMouseOver()
     {
         if (!_isEnabled) return;
         _isMouseOver = true;
@@ -91,7 +101,7 @@ public class Button : MonoBehaviour
         _spriteRenderer.sprite = _sprites[1];
     }
 
-    private void OnMouseEnter()
+    protected void OnMouseEnter()
     {
         if (!_isEnabled) return;
         if (_hoverAudio == null) return;
@@ -108,8 +118,9 @@ public class Button : MonoBehaviour
     #endregion Mouse Interactions END
 
     // Do stuff
-    protected void ButtonPress()
+    protected virtual void ButtonPress()
     {
+        Debug.Log("Button pressed");
         OnPressed.Invoke();
     }
 

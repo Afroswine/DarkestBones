@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 [RequireComponent(typeof(CombatSM))]
 public class CombatState : State
@@ -13,12 +14,14 @@ public class CombatState : State
 
     private void OnEnable()
     {
+        SM.PartyController.CharactersUpdated += UpdateActiveCharacters;
         SM.TurnController.ChangedTurn += EnterNextCombatState;
     }
 
     private void OnDisable()
     {
         SM.TurnController.ChangedTurn -= EnterNextCombatState;
+        SM.PartyController.CharactersUpdated -= UpdateActiveCharacters;
     }
 
     // changes combat state based on the current turn's character
@@ -30,5 +33,35 @@ public class CombatState : State
             SM.ChangeState<EnemyTurnCombatState>();
         else
             Debug.LogWarning("TurnOrder.CharactersTurnOrder[] contains a non hero/enemy!");
+    }
+
+    // updates the list of characters in turn controller
+    private void UpdateActiveCharacters(List<Character> characters)
+    {
+        SM.TurnController.UpdateActiveCharacters(characters);
+    }
+
+    protected void AbilityTargetSelection(Party targetParty, List<bool> isTargetables)
+    {
+        // nullcheck the targetParty
+        if (targetParty == null)
+        {
+            Debug.LogWarning("CombatState.ActivateAbilityTargeting(): No party given!");
+            return;
+        }
+        if (isTargetables.Count > 4)
+        {
+            Debug.LogWarning("CombatState.ActivateAbilityTargetSelection(): isTargetables.Count is greater than 4!");
+        }
+
+        // Ensures we aren't checking for more targets than there actually are
+        int targetsToCheck = Mathf.Min(targetParty.PartyMembers.Count, isTargetables.Count);
+
+        // enable AbilityTargeting on the specified targets
+        for (int i = 0; i < targetsToCheck; i++)
+        {
+            if (isTargetables[i] == true)
+                targetParty.PartyMembers[i].InvokeTargeted();
+        }
     }
 }

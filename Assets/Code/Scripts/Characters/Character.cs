@@ -1,26 +1,33 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 [RequireComponent(typeof(CharacterStats))]
 public class Character : MonoBehaviour, IHealable
 {
+    // public variables
     public CharacterStats Stats => _stats;
+    public AbilityTargeting TargetSelect => _targetSelect;
+    public List<Ability> Abilities => _abilities;
     public int Health => Stats.Health;
     public int PartyPosition => _partyPosition;
-    [HideInInspector]
-    public Party Party = null;
+    public bool IsTurn = false;
+    [HideInInspector] public Party Party = null;
+    [HideInInspector] public Party OpposingParty = null;
+    [HideInInspector] public List<Character> ActiveCharacters = null;
 
-    // Abilities... might need state machine that takes into account the character's position
-    protected CombatAbility _ability1;
-    protected CombatAbility _ability2;
-    protected CombatAbility _ability3;
-    protected CombatAbility _ability4;
+    [Header("Character")]
+    [SerializeField] private CharacterStats _stats; // getting the stats component in awake did not work, doing this for now.
+    [SerializeField] private List<Ability> _abilities;
 
+    //private 
+    private AbilityTargeting _targetSelect;
     private int _partyPosition = 0;
 
-    [SerializeField] private CharacterStats _stats; // getting the stats component in awake did not work, doing this for now.
-    //private Party _party;
+    // Events
+    [Tooltip("Is this character ABLE TO BE targeted by an ability?")]
+    public event Action Targeted = delegate { };
 
     // Cap party size
     private void OnValidate()
@@ -33,6 +40,23 @@ public class Character : MonoBehaviour, IHealable
         {
             Debug.LogWarning("Party position may not be less than: 0!");
         }
+    }
+
+    private void Awake()
+    {
+        _targetSelect = GetComponentInChildren<AbilityTargeting>();
+    }
+
+    private void Start()
+    {
+        _targetSelect = GetComponentInChildren<AbilityTargeting>();
+        //Debug.Log(_targetSelect.name);
+    }
+
+    public void InvokeTargeted()
+    {
+        _targetSelect = GetComponentInChildren<AbilityTargeting>();
+        Targeted?.Invoke();
     }
 
     // Damage this character.

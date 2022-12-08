@@ -17,40 +17,22 @@ public class TurnController : MonoBehaviour
     // private
     [Tooltip("visually indicates which character's turn it is")]
     [SerializeField] TurnIndicator _turnIndicator;
+    [SerializeField] AbilityTargeting _targetSelect;
 
     [Tooltip("A sorted list of the characters based on their speed.")]
     private List<Character> _turnOrder = new List<Character>();
     [Tooltip("Stores all (TODO - living and active) characters.")]
     private List<Character> _activeCharacters = new List<Character>();
 
-    public void AddCharacter(List<Character> characters)
-    {
-        _activeCharacters.AddRange(characters);
-        //characters.ForEach(i => Debug.Log("AddCharacterList() "+i.name));
-    }
-    public void AddCharacter(Character character)
-    {
-        _activeCharacters.Add(character);
-        //Debug.Log("AddCharacter(): "+character.name);
-    }
-
-    public void RemoveCharacter(List<Character> characters)
-    {
-        foreach(var character in characters)
-        {
-            _activeCharacters.Remove(character);
-        }
-    }
-    public void RemoveCharacter(Character character)
-    {
-        _activeCharacters.Remove(character);
-    }
-
-    // sets the turn order of the added characters
     public void Setup()
     {
         CreateTurnIndicator();
         NextRound();
+    }
+
+    public void UpdateActiveCharacters(List<Character> characters)
+    {
+        _activeCharacters = new List<Character>(characters);
     }
 
     private void CreateTurnIndicator()
@@ -78,8 +60,12 @@ public class TurnController : MonoBehaviour
             return;
         }
 
+        _turnOrder[0].IsTurn = false;
         _turnOrder.RemoveAt(0);
+
         UpdateTurnOrder();
+
+        _turnOrder[0].IsTurn = true;
         ChangedTurn?.Invoke();
     }
 
@@ -88,7 +74,9 @@ public class TurnController : MonoBehaviour
     {
         _turnOrder = new List<Character>(_activeCharacters);
         UpdateTurnOrder();
-        foreach (var character in _turnOrder) Debug.Log("TurnOrder: " + character.name + ", Speed: " + character.Stats.Speed);
+        //foreach (var character in _turnOrder) Debug.Log("TurnOrder: " + character.name + ", Speed: " + character.Stats.Speed);
+
+        _turnOrder[0].IsTurn = true;
         ChangedTurn?.Invoke();
     }
 

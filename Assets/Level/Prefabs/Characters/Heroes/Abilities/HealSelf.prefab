@@ -12,7 +12,8 @@ GameObject:
   - component: {fileID: 374707649357368344}
   - component: {fileID: 374707649357368345}
   - component: {fileID: 374707649357368346}
-  - component: {fileID: 374707649357368347}
+  - component: {fileID: -741501869944118266}
+  - component: {fileID: -9025026100006956052}
   m_Layer: 0
   m_Name: HealSelf
   m_TagString: Untagged
@@ -76,7 +77,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -555338345, guid: 2d2e12c116ef4d24991539ae95226948, type: 3}
+  m_Sprite: {fileID: 998609199, guid: cf0691f762d122940a09033cb9955fb3, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -125,7 +126,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2cc961026b359d5469070b32b21d1ab3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &374707649357368347
+--- !u!114 &-741501869944118266
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -134,7 +135,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 374707649357368324}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5a6eda37c684e5a438ddc0a70c33ff83, type: 3}
+  m_Script: {fileID: 11500000, guid: 76121474e41e5d04babd6b320ba65985, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   OnPressed:
@@ -148,3 +149,25 @@ MonoBehaviour:
   _hoverAudio: {fileID: 8300000, guid: 08420ce77710710468a105e9614a1b4b, type: 3}
   _pressDownAudio: {fileID: 8300000, guid: 1fdcac5e488a4ff42ad025a6ab3c763a, type: 3}
   _pressUpAudio: {fileID: 8300000, guid: 32689bba7ec093f4aaf81e3b31d85262, type: 3}
+  _ability: {fileID: -9025026100006956052}
+--- !u!114 &-9025026100006956052
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 374707649357368324}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9dae9f8c559c3b3479157ef265e583c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Caster: {fileID: 1942037017, guid: db343525f2f9653448ac7f07056108c6, type: 3}
+  _buttonSprites:
+  - {fileID: 998609199, guid: cf0691f762d122940a09033cb9955fb3, type: 3}
+  - {fileID: 1623284135, guid: cf0691f762d122940a09033cb9955fb3, type: 3}
+  - {fileID: 1166951426, guid: cf0691f762d122940a09033cb9955fb3, type: 3}
+  _targetType: 2
+  _selfTarget: 1
+  _multiTarget: 0
+  _targetablePositions: 00000000

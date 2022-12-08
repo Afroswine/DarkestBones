@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 76121474e41e5d04babd6b320ba65985
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - _hoverAudio: {fileID: 8300000, guid: 08420ce77710710468a105e9614a1b4b, type: 3}
+  - _pressDownAudio: {fileID: 8300000, guid: 1fdcac5e488a4ff42ad025a6ab3c763a, type: 3}
+  - _pressUpAudio: {fileID: 8300000, guid: 32689bba7ec093f4aaf81e3b31d85262, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

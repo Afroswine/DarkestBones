@@ -10,11 +10,13 @@ public class CharacterStats : MonoBehaviour
     // PUBLIC base stats
     public int MaxHealth => _maxHealth;
     public int BasePower => _basePower;
+    public int BaseAccuracy => _baseAccuracy;
     public float BaseDefense => _baseDefense;
     public int BaseSpeed => _baseSpeed;
     // PUBLIC current stats
     public int Health => _health;
     public int Power => _power;
+    public int Accuracy => _baseAccuracy;
     public float Defense => _defense;
     public int Speed => _speed;
 
@@ -26,6 +28,8 @@ public class CharacterStats : MonoBehaviour
     private int _maxHealth = 40;
     [SerializeField] 
     private int _basePower = 6;
+    [SerializeField]
+    private int _baseAccuracy = 0;
     [SerializeField] 
     private int _baseSpeed = 10;
     [SerializeField]
@@ -37,7 +41,8 @@ public class CharacterStats : MonoBehaviour
     [Header("Current")]
     private int _health = 1;
     private int _power = 1;
-    private float _defense = 1;
+    private int _accuracy = 0;
+    private float _defense = 0;
     private int _speed = 1;
 
     private void OnEnable() 
@@ -50,6 +55,7 @@ public class CharacterStats : MonoBehaviour
     {
         _health = MaxHealth;
         _power = BasePower;
+        _accuracy = BaseAccuracy;
         _defense = BaseDefense;
         _speed = BaseSpeed;
     }

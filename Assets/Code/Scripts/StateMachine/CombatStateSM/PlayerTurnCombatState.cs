@@ -7,15 +7,22 @@ public class PlayerTurnCombatState : CombatState
 
     private bool _activated = false;
 
+    #region CombatState Base
     public override void Enter()
     {
         Debug.Log("Player Turn: ...Entering");
+        // subscribe
         SM.Input.PressedCancel += OnPressedCancel;
         SM.TurnController.ChangedTurn += UpdateHeroGUI;
 
+        // enable ability buttons
+        SM.PartyController.UpdateActiveCharacters();
         UpdateHeroGUI();
         SM.UI.EnableButtons(true);
+
         _activated = false;
+
+        // enable text object
         _playerTurnTextUI.gameObject.SetActive(true);
         _playerTurnTextUI.text = "Player Turn";
     }
@@ -30,16 +37,23 @@ public class PlayerTurnCombatState : CombatState
 
     public override void Exit()
     {
+        // disable text object
         _playerTurnTextUI.gameObject.SetActive(false);
+
         _activated = false;
+
+        // disable ability buttons
         SM.UI.EnableButtons(false);
 
+        // unsubscribe
         SM.TurnController.ChangedTurn -= UpdateHeroGUI;
         SM.Input.PressedCancel -= OnPressedCancel;
 
         Debug.Log("Player Turn: Exiting...");
     }
+    #endregion CombatState Base END
 
+    // changes the UI based on current hero
     private void UpdateHeroGUI()
     {
         if (SM.TurnController.CurrentCharacter().TryGetComponent(out Hero hero))
@@ -48,6 +62,7 @@ public class PlayerTurnCombatState : CombatState
         }
     }
 
+    // TODO - remove
     private void OnPressedCancel()
     {
         Debug.Log("Attempt to enter Win State!");

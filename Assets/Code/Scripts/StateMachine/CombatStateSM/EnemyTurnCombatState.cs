@@ -17,7 +17,8 @@ public class EnemyTurnCombatState : CombatState
     {
         Debug.Log("Enemy Turn: ...Entering");
         SM.Input.PressedCancel += OnPressedCancel;
-        
+
+        SM.PartyController.UpdateActiveCharacters();
         SM.UI.EnableButtons(false);
         _activated = false;
         _enemyTurnTextUI.gameObject.SetActive(true);

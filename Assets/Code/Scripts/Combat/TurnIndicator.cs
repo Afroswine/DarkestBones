@@ -6,9 +6,10 @@ using UnityEngine;
 public class TurnIndicator : MonoBehaviour
 {
     [Header("Turn Indicator")]
-    [SerializeField] private int _yOffset = -6;
+    //[SerializeField] private int _yOffset = -6;
+    [SerializeField] private Vector3 _positionOffset = new Vector3(0, -6, 0);
 
-    public TurnController TurnController;
+    [HideInInspector] public TurnController TurnController;
 
     private void OnEnable()
     {
@@ -23,8 +24,7 @@ public class TurnIndicator : MonoBehaviour
     private void Reposition()
     { 
         Character character = TurnController.CurrentCharacter();
-        Vector3 position = character.Party.Positions[character.PartyPosition];
-        position.y += _yOffset;
-        gameObject.transform.position = position;
+        Vector3 characterPos = character.Party.Positions[character.PartyPosition];
+        transform.position = characterPos + _positionOffset;
     }
 }
